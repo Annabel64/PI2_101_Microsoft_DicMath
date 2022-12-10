@@ -3,7 +3,7 @@
 Titre : DicMath - Dictée vocale d'équations Mathématiques - projet proposé à notre groupe d'étudiants par Microsoft
 (english version bellow)
 
-1- Objectif du projet (attendu final)
+1- Objectif du projet (attendu final)\n
 L'objectif de notre projet est de concevoir un logiciel permettantà desjeunesaveugles de dicter des équations mathématiques et de recevoir des retours vocaux pour pouvoir résoudre l’équation.Ce logiciel fonctionnera sur ordinateur. Toutes les commandes peuvent être exécutées par saisie au clavierou vocalement, ce qui évite l'utilisation de lasouris.Les principaux utilisateurs du logiciel seront des jeunes aveugles (niveau bacmax). Le logiciel ne fournira donc que les opérations mathématiques de base, notamment l'addition, la soustraction, la multiplication et la division, la puissance et les fonctions.Notre logiciel met en œuvre à la fois l'entrée et la sortie des équations : l'utilisateur dicte l'équation et le logiciel retourne vocalement l'équation comprise.Compte tenu de l'incertitude de l'équation d'entrée, le logiciel émet un signal sonore lorsque l'équation est terminée, répétant éventuellement l'équation et émettant respectivement donne un signal sonore différent lorsqu'une erreur est reportée.La fonction de navigation permet à l'utilisateur de localiser et de modifier l'équation existante. Compte tenu des ressources disponibles en bibliothèque, nous mettons en œuvre la dictée dans un maximum de langues possibles, l'anglais et le français compris.
 
 2- Décomposition en tâches et sous tâches
