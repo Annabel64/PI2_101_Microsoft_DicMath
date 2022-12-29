@@ -21,9 +21,16 @@ model = None
 def load_model():
   global model
   model = whisper.load_model("base")
+  cle = "4c9e5aae707e41518A148720a8b56c11"
+  region = "francecentral"
+  speech_config = speechsdk.SpeechConfig(subscription=cle, region=region)
+  audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
 
 def text_to_readable(text):
   return text.replace("^"," puissance ").replace("/"," sur ").replace("-"," moins ")
+
+
 def Speaker_Choice(language="fr", gender="male"):
     speaker_dict = {"fr": ["fr-FR-AlainNeural", "fr-FR-CelesteNeural"],
                     "en": ["en-GB-AlfieNeural", "en-US-AmberNeural"],
@@ -72,26 +79,6 @@ def Speech_To_Text2(speech_audio):
 
     return result.text, detected_language
 
-def Speech_To_Text(filepath,spoken_language="en-US"):
-    # Set Configs
-    cle = "4c9e5aae707e41518A148720a8b56c11"
-    region = "francecentral"
-    speech_config = speechsdk.SpeechConfig(subscription=cle, region=region)
-    speech_config.speech_recognition_language=spoken_language
-    audio_input = speechsdk.AudioConfig(filename=filepath)
-    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_input)
-    # Get Result
-    speech_recognition_result = speech_recognizer.recognize_once_async().get()
-    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        return speech_recognition_result.text
-    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
-        return f"No speech could be recognised: {speech_recognition_result.no_match_details}"
-    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
-        cancellation_details = speech_recognition_result.cancellation_details
-        error_msg = f"Speech Recognition canceled: {cancellation_details.reason}"
-        if cancellation_details.reason == speechsdk.CancellationReason.Error:
-            error_msg += "\n" + f"Error details: {cancellation_details.error_details}"
-        return error_msg
 
 def save_latex(latex):
   with open("static/latex.txt","w",encoding='utf-8') as f:
@@ -137,6 +124,7 @@ def Text_To_Latex(text):
 
 app = Flask(__name__)
 
+
 transcript = ""
 @app.route('/', methods=['GET','POST'])
 def main(): 
@@ -172,6 +160,7 @@ def main():
   else:
     return render_template('main.html',transcript=transcript,old_latex=old_latex,latex=latex,images=images)
 
+
 @app.route('/listening', methods=['GET','POST'])
 def listen():
     # latex,fig = Text_To_Latex("x squared plus 5")
@@ -179,6 +168,7 @@ def listen():
     image_path = "static/images/latex_fig/test.png"
     # fig.savefig(image_path)
     return render_template('main.html',message="test",image_path=image_path)
+
 
 @app.route('/save_current_to_historic', methods=['GET','POST'])
 def save_to_historic():
@@ -197,6 +187,7 @@ def save_to_historic():
     f.write(historic+"\n"+Latex_To_Text(current))
   return redirect(url_for("main"))
 
+
 @app.route('/clear_historic', methods=['GET','POST'])
 def clear_historic():
   if request.method == 'POST':
@@ -207,11 +198,7 @@ def clear_historic():
         os.remove("static/images/latex_fig/"+file)
   return redirect(url_for("main"))
 
-@app.route('/test', methods=['GET','POST'])
-def test(): 
-  if request.method == 'POST':
-    return render_template("test.html")
-  return render_template('test.html')
+
 
 if __name__ == '__main__':
     load_model()
