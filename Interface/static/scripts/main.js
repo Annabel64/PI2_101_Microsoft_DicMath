@@ -1,9 +1,11 @@
+// On attend que le DOM soit chargé avant de lancer les fonctions
 $(document).ready(function () {
+    // Lancer les fonctions qui gèrent les modaux
     settings_modal();
     help_modal();
-    rec_function();
+    recFunction();
 
-    // When the user clicks ESC, close it
+    // Lorsque l'utilisateur appuie sur Echap, fermer le modal
     $(document).keydown(function (event) {
         if (event.keyCode == 76) {
             document.getElementById("read_button").click()
@@ -14,7 +16,6 @@ $(document).ready(function () {
 function start_recording() {
     navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then(stream => {
-
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
 
@@ -23,16 +24,16 @@ function start_recording() {
                 audioChunks.push(event.data);
             });
 
+            // Arrêter l'enregistrement audio au bout de 5 secondes
             setTimeout(() => {
                 mediaRecorder.stop();
-            }, 5000);
+            }, 6000);
             mediaRecorder.addEventListener("stop", () => {
-                //   const audioBlob = new Blob(audioChunks);
-                //   const audioUrl = URL.createObjectURL(audioBlob);
-                //   const audio = new Audio(audioUrl);
+                // Créer un fichier audio à partir des données enregistrées
                 const blob = new Blob(audioChunks, {
                     type: 'audio/wav'
                 });
+                // Envoyer ce fichier au serveur
                 const formData = new FormData();
                 formData.append('audio-file', blob);
                 return fetch('', {
@@ -40,26 +41,24 @@ function start_recording() {
                     body: formData
                 });
             });
-
         });
 }
 
+// Fonction qui gère l'affichage et la fermeture du modal des paramètres
 function settings_modal() {
-    // Get the modal
-    var modal = document.getElementById("settings-modal");
+    // Récupérer le modal et le bouton qui l'ouvre
+    const modal = document.getElementById("settings-modal");
+    const btn = document.getElementById("settings-button");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("settings-button");
-
-    // When the user clicks on the button, open the modal
+    // Lorsque l'utilisateur clique sur le bouton, afficher le modal
     btn.onclick = function () {
         modal.style.display = "block";
         document.getElementById("language-picker-select").focus()
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Lorsque l'utilisateur clique en dehors du modal, le fermer
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
@@ -71,7 +70,7 @@ function settings_modal() {
         }
     });
 
-    // When the user clicks S, open modal
+    // Lorsque l'utilisateur appuie sur P, ouvrir le modal des paramètres
     $(document).keydown(function (event) {
         if (event.keyCode === 80) {
             btn.click()
@@ -79,25 +78,31 @@ function settings_modal() {
     });
 }
 
+// Fonction qui gère l'affichage et la fermeture du modal d'aide
 function help_modal() {
-    // Get the modal
-    var modal = document.getElementById("help-modal");
+    // Récupérer le modal et le bouton qui l'ouvre
+    const modal = document.getElementById("help-modal");
+    const btn = document.getElementById("help-button");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("help-button");
-
-    // When the user clicks on the button, open the modal
+    // Lorsque l'utilisateur clique sur le bouton, afficher le modal
     btn.onclick = function () {
         modal.style.display = "block";
         document.getElementById("language-picker-select").focus()
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Lorsque l'utilisateur clique en dehors du modal, le fermer
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
+
+    // Lorsque l'utilisateur appuie sur H, ouvrir le modal d'aide
+    $(document).keydown(function (event) {
+        if (event.keyCode === 72) {
+            btn.click()
+        }
+    });
 
     // When the user clicks ESC, close it
     $(document).keydown(function (event) {
@@ -105,57 +110,47 @@ function help_modal() {
             modal.style.display = "none";
         }
     });
-
-    // When the user clicks S, open modal
-    $(document).keydown(function (event) {
-        if (event.keyCode === 72) {
-            btn.click()
-        }
-    });
 }
 
-function rec_function() {
-    var audioRecorder = {
-        /** Start recording the audio
-          * @returns {Promise} - returns a promise that resolves if audio recording successfully started
-          */
-        start: function () {
-            return navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
 
-                    audioRecorder.streamBeingCaptured = stream;
+function recFunction() {
+  // Créer un objet qui gère l'enregistrement audio
+  var audioRecorder = {
+    /** Démarrer l'enregistrement audio
+      * @returns {Promise} - retourne une promesse qui se résout si l'enregistrement audio a démarré avec succès
+      */
+    start: function () {
+      return navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            audioRecorder.streamBeingCaptured = stream;
+            audioRecorder.recorder = new MediaRecorder(stream);
+            audioRecorder.audioBlobs = [];
 
-                    audioRecorder.mediaRecorder = new MediaRecorder(stream);
-
-                    audioRecorder.audioBlobs = [];
-
-                    audioRecorder.mediaRecorder.addEventListener("dataavailable", event => {
-                        audioRecorder.audioBlobs.push(event.data);
-                    });
-
-                    audioRecorder.mediaRecorder.start();
-                });
-        },
-        /** Stop the started audio recording
-          * @returns {Promise}
-          */
-        stop: function () {
-            audioRecorder.mediaRecorder.addEventListener("stop", () => {
-                //   const audioBlob = new Blob(audioChunks);
-                //   const audioUrl = URL.createObjectURL(audioBlob);
-                //   const audio = new Audio(audioUrl);
-                const blob = new Blob(audioChunks, {
-                    type: 'audio/wav'
-                });
-                const formData = new FormData();
-                formData.append('audio-file', blob);
-                return fetch('', {
-                    method: 'POST',
-                    body: formData
-                });
+            audioRecorder.mediaRecorder.addEventListener("dataavailable", event => {
+            audioRecorder.audioBlobs.push(event.data);
             });
-        }
+        audioRecorder.recorder.start();
+        });
+    },
+    /** Arrêter l'enregistrement audio
+      * @returns {Promise} - retourne une promesse qui se résout avec les données audio enregistrées
+      */
+    stop: function () {
+        audioRecorder.mediaRecorder.addEventListener("stop", () => {
+            const blob = new Blob(audioChunks, {
+                type: 'audio/wav'
+            });
+            const formData = new FormData();
+            formData.append('audio-file', blob);
+            return fetch('', {
+                method: 'POST',
+                body: formData
+            });
+        });
     }
+  };
+
+  // Lorsque l'utilisateur appuie sur L, démarrer ou arrêter l'enregistrement audio
     $(document).keydown(function (event) {
         if (event.keyCode === 32) {
             rec_button = $('#start-btn')
