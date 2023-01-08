@@ -13,36 +13,57 @@ $(document).ready(function () {
     });
 });
 
+let isRecording = false;
+
 function start_recording() {
-    navigator.mediaDevices.getUserMedia({ video: false, audio: true })
-        .then(stream => {
-            const mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.start();
+    // Inverser la valeur de isRecording
+    isRecording = !isRecording;
 
-            const audioChunks = [];
-            mediaRecorder.addEventListener("dataavailable", event => {
-                audioChunks.push(event.data);
-            });
+    if (isRecording) {
+        // Modifier le texte du bouton et sa couleur
+        document.getElementById("startBtn").innerHTML = "Enregistrement...";
+        document.getElementById("startBtn").classList.add("btn-success");
+        document.getElementById("startBtn").classList.remove("btn-danger");
 
-            // Arrêter l'enregistrement audio au bout de 5 secondes
-            setTimeout(() => {
-                mediaRecorder.stop();
-            }, 6000);
-            mediaRecorder.addEventListener("stop", () => {
-                // Créer un fichier audio à partir des données enregistrées
-                const blob = new Blob(audioChunks, {
-                    type: 'audio/wav'
+        navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+            .then(stream => {
+                const mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+
+                const audioChunks = [];
+                mediaRecorder.addEventListener("dataavailable", event => {
+                    audioChunks.push(event.data);
                 });
-                // Envoyer ce fichier au serveur
-                const formData = new FormData();
-                formData.append('audio-file', blob);
-                return fetch('', {
-                    method: 'POST',
-                    body: formData
+
+                // Arrêter l'enregistrement audio au bout de 6 secondes
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                    // Modifier à nouveau le texte du bouton et sa couleur
+                    document.getElementById("startBtn").innerHTML = "Lancer l'enregistrement";
+                    document.getElementById("startBtn").classList.add("btn-danger");
+                    document.getElementById("startBtn").classList.remove("btn-success");
+                    isRecording = !isRecording;
+                    location.reload();
+                }, 6000);
+                mediaRecorder.addEventListener("stop", () => {
+                    // Créer un fichier audio à partir des données enregistrées
+                    const blob = new Blob(audioChunks, {
+                        type: 'audio/wav'
+                    });
+                    // Envoyer ce fichier au serveur
+                    const formData = new FormData();
+                    formData.append('audio-file', blob);
+                    return fetch('', {
+                        method: 'POST',
+                        body: formData
+                    });
                 });
             });
-        });
+    }
 }
+
+
+
 
 // Fonction qui gère l'affichage et la fermeture du modal des paramètres
 function settings_modal() {
@@ -153,7 +174,7 @@ function recFunction() {
   // Lorsque l'utilisateur appuie sur L, démarrer ou arrêter l'enregistrement audio
     $(document).keydown(function (event) {
         if (event.keyCode === 32) {
-            rec_button = $('#start-btn')
+            rec_button = $('#startBtn')
 
             if (rec_button.hasClass('Rec')) {
                 rec_button.removeClass("Rec");
