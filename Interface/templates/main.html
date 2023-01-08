@@ -37,14 +37,14 @@
                     <form action="/" method="post">
                         <button id="read_button" type="submit" class="play"><i class="fa fa-play" style="font-size:24px"></i></button>
                     </form>
-                    <img style="width:100px;margin-left: 20px;" src="static/images/image_current.png">
+                    <img class="img-record" style="width:100px;margin-left: 20px;" src="static/images/image_current.png">
                     <!-- <textarea id="textbox" rows="6" class="form-control">{{latex}}</textarea> -->
                 </div>
             </div>
 
             <div class="form-group">
                 <button id="startBtn" class="btn btn-danger btn-block" onclick="start_recording()">Lancer la dictée</button>
-            </div>
+            </div>            
         </div>
 
         <div class="history_container">
@@ -55,10 +55,7 @@
             {% for image in images %}
             <img class="img-historic" style="width:100px;" src="{{image}}">
             {% endfor %}
-            <form action="/clear_historic" method="post">
-                <button name="clear_historic" type="clear_historic">Supprimer l'historique</button>
-            </form>
-        </div>
+        </div>        
     </div> 
 
     <div id="settings-modal" class="modal">
@@ -77,17 +74,46 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- Modal d'aide -->
     <div id="help-modal" class="modal">
+        <!-- Contenu du modal -->
         <div class="modal-content">
             <h1>Aide</h1>
+            <p>Bienvenue sur DicMath, l'application de dictée vocale pour les objets mathématiques !</p>
+            <p>Pour utiliser l'application, suivez les étapes suivantes :</p>
+            <ol>
+                <li>Cliquez sur le bouton rouge "Lancer l'enregistrement" pour démarrer l'enregistrement de votre dictée.
+                </li>
+                <li>Dictez votre équation mathématique.</li>
+                <li>Cliquez à nouveau sur le bouton rouge "Lancer l'enregistrement" pour arrêter l'enregistrement.</li>
+                <li>Votre équation mathématique sera automatiquement reconnue et affichée à l'écran.</li>
+                <li>Cliquez sur le bouton "Lire l'équation" pour entendre votre équation mathématique lue à haute voix. </li>
+                <li>Vous pouvez accéder aux paramètres de l'application en cliquant sur le bouton gris "&#9881;" en haut à droite de
+                    l'écran.</li>
+                <li>Dans les paramètres, vous pouvez sélectionner la langue de synthèse vocale et ajuster la vitesse de lecture de
+                    l'équation.</li>
+                <li>Pour afficher l'historique des équations dictées, cliquez sur le bouton vert "&#128214;" en haut à droite de
+                    l'écran.</li>
+                <li>Pour effacer l'historique, cliquez sur le bouton rouge "Supprimer l'historique" en bas de l'historique.</li>
+                <li>Pour obtenir de l'aide sur l'utilisation de l'application, cliquez sur le bouton jaune "&#128712;" en haut à
+                    droite de l'écran.</li>
+            </ol>
         </div>
     </div>
 
-    <form action="/save_current_to_historic" method="post">
-        <input name="current_value" id="current_value" style="display: none;" value="{{latex}}">
-        <button name="forwardBtn" type="submit">Enregistrer l'équation</button>
-    </form>
+    <div class="left-sidebar">
+        <form action="/save_current_to_historic" method="post">
+            <input name="current_value" id="current_value" style="display: none;" value="{{latex}}">
+            <button name="forwardBtn" type="submit">Enregistrer dans l'historique</button>
+        </form>
+
+        <form action="/clear_historic" method="post">
+            <button name="clear_historic" type="clear_historic">Supprimer l'historique</button>
+        </form>        
+    </div>
+
+
 </body>
 
 </html>
