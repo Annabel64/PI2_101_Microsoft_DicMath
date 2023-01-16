@@ -1,1 +1,1 @@
-3 \cdot x
+5 \cdot x + 3 + 7 + y

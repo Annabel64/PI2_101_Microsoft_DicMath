@@ -35,9 +35,9 @@
                 <h2>Equation en cours</h2>
                 <div class="line-elements">
                     <form action="/" method="post">
-                        <button id="read_button" type="submit" class="play"><i class="fa fa-play" style="font-size:24px"></i></button>
+                        <button id="read_button" type="submit" class="play"><i class="fa fa-play" ></i></button>
                     </form>
-                    <img class="img-record" style="width:100px;margin-left: 20px;" src="static/images/image_current.png">
+                    <img id="img-record" class="img-record" src="static/images/image_current.png">
                     <!-- <textarea id="textbox" rows="6" class="form-control">{{latex}}</textarea> -->
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <p>{{latex}}</p>
             {% endfor %} -->
             {% for image in images %}
-            <img class="img-historic" style="width:100px;" src="{{image}}">
+            <img class="img-historic" src="{{image}}">
             {% endfor %}
         </div>        
     </div> 

@@ -35,7 +35,7 @@ function start_recording() {
                     audioChunks.push(event.data);
                 });
 
-                // Arrêter l'enregistrement audio au bout de 6 secondes
+                // Arrêter l'enregistrement audio au bout de 10 secondes
                 setTimeout(() => {
                     mediaRecorder.stop();
                     // Modifier à nouveau le texte du bouton et sa couleur
@@ -44,7 +44,7 @@ function start_recording() {
                     document.getElementById("startBtn").classList.remove("btn-success");
                     isRecording = !isRecording;
                     location.reload();
-                }, 6000);
+                }, 10000);
                 mediaRecorder.addEventListener("stop", () => {
                     // Créer un fichier audio à partir des données enregistrées
                     const blob = new Blob(audioChunks, {

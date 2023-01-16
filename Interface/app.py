@@ -137,7 +137,7 @@ def Nettoyage(text):
   # ax => a times x
   text = re.sub("\d+[a-z]+", simplify_multiplication, text) 
   # Simplify Power: x^4 = superscript 4 -> x power 4
-  text = text.replace("power", "superscript").replace("^"," puissance ").replace("/"," sur ").replace("-"," moins ")
+  text = text.replace("power", "superscript").replace("^"," puissance ").replace("/"," sur ").replace("également", "equals")
   
   return text
 
@@ -195,6 +195,7 @@ def main():
       try:
         # Transcrire l'audio en texte et générer le code LaTeX correspondant
         transcript,lang = Speech_To_Text("static/audio/speech_file.wav")
+        transcript=Nettoyage(text=transcript)
         latex,fig = Text_To_Latex(transcript)
         # Enregistrer l'image de la formule générée
         image_path = "static/images/image_current.png"
