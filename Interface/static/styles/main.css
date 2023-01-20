@@ -39,6 +39,7 @@
   margin: 20px;
   margin-left: 50px;
   width: 100%;
+  line-height: 1;
 }
 
 #read_button {
@@ -61,6 +62,7 @@
   height: 500px;
   /* pour placer les éléments à l'interieur */
   text-align: left;
+  flex-direction: column;
 }
 
 .history_container {
@@ -73,19 +75,25 @@
   /* pour donner la même largeur à ces deux éléments */
   height: 500px;
   /* pour placer les éléments à l'interieur */
-  text-align: left;
+  text-align: center;
+  flex-direction: column;
+  line-height: 1;
 }
 
 .record_container h2,
 .history_container h2 {
   margin-top: 20;
   text-align: center;
+  flex-direction: column;
+  line-height: 1;
 }
 
 .history_container img {
+  display: block;
   margin-left: 0%;
   width: 30%;
   height: 25%;
+  line-height: 1;
 }
 
 .record_container img {
@@ -138,10 +146,6 @@ button[name="clear_historic"] {
   cursor: pointer;
   border-radius: 5px;
 }
-
-
-
-
 
 button[name="startBtn"] {
   position: absolute;

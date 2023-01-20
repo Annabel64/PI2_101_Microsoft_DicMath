@@ -135,10 +135,10 @@ def Nettoyage(text):
   # Clean the Text (get of last '.' and useless characters ',')
   text = text[:-1].replace(',', '') if text[-1] == "." else text.replace(',', '')
   # ax => a times x
-  text = re.sub("\d+[a-z]+", simplify_multiplication, text) 
+  text = re.sub("\d+[a-z]+", simplify_multiplication, text)
+  text = re.compile(r'\bégal\w*\b').sub('equals', text)
   # Simplify Power: x^4 = superscript 4 -> x power 4
-  text = text.replace("power", "superscript").replace("^"," puissance ").replace("/"," sur ").replace("également", "equals")
-  
+  text = text.replace("power", "superscript").replace("^"," puissance ").replace("/"," sur ")
   return text
 
 def save_latex(latex):
