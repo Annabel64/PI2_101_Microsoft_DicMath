@@ -45,19 +45,20 @@
 #read_button {
   border-radius: 60%;
   background-color: rgba(255, 0, 0, 0.5);
-  width: 10%;
+  width: 15%;
+  height: 50px;
   margin-left: 10px;
   margin-top: 10px;
 }
 
 .record_container{
   display: block;
-  border: 2px solid #3498db;
+  border: 2px solid #ffffff;
   margin-left: 200px;
   margin-right: 50px;
   border-radius: 10px;
   padding: 20px;
-  width: 50%;
+  width: 80%;
   /* pour donner la même largeur à ces deux éléments */
   height: 500px;
   /* pour placer les éléments à l'interieur */
@@ -67,7 +68,7 @@
 
 .history_container {
   display: block;
-  border: 2px solid #3498db;
+  border: 2px solid #cdcdcd;
   margin-left: 20px;
   border-radius: 10px;
   padding: 20px;
@@ -92,7 +93,7 @@
   display: block;
   margin-left: 0%;
   width: 30%;
-  height: 25%;
+  height: 20%;
   line-height: 1;
 }
 
