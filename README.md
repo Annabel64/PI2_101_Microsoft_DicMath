@@ -1,9 +1,10 @@
 # PI2_101_Microsoft_DicMath : DicMath - Dictée vocale d'équations Mathématiques 
-Projet proposé à notre groupe d'étudiants par Microsoft
-(english version bellow)
+If you need additional information, do not hesitate to contact me by email annbl.mrcn@gmail.com (Annabel)!
+
+_________ English version bellow _________
 
 Note : to create a new python environment allowing the execution of the code, execute the following command in the command prompt : 
-"conda create -n <Dicmath_Microsoft> --file environment.txt". The environment.txt file is given in the github repository
+"conda create -n <Dicmath_Microsoft> --file environment.txt". The environment.txt file is given in the github repository.
 
 
 [![Watch the video](https://github.com/Annabel64/PI2_101_Microsoft_DicMath/blob/main/Documents/video%20image.png)](https://github.com/Annabel64/PI2_101_Microsoft_DicMath/blob/main/Documents/DicMath%20-%20Pitch%20Video.mp4)
