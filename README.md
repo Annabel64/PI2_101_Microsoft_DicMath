@@ -1,113 +1,78 @@
 # PI2_101_Microsoft_DicMath : DicMath - Dictée vocale d'équations Mathématiques 
-Projet proposé à notre groupe d'étudiants par Microsoft
-(english version bellow)
+If you need additional information, do not hesitate to contact me by email annbl.mrcn@gmail.com (Annabel)!
+
+_________ English version bellow _________
 
 Note : to create a new python environment allowing the execution of the code, execute the following command in the command prompt : 
-"conda create -n <Dicmath_Microsoft> --file environment.txt". The environment.txt file is given in the github repository
+"conda create -n <Dicmath_Microsoft> --file environment.txt". The environment.txt file is given in the github repository.
 
 
 [![Watch the video](https://github.com/Annabel64/PI2_101_Microsoft_DicMath/blob/main/Documents/video%20image.png)](https://github.com/Annabel64/PI2_101_Microsoft_DicMath/blob/main/Documents/DicMath%20-%20Pitch%20Video.mp4)
 
 
 
-## 1- Objectif du projet (attendu final)
+## Résumé Français
 
-L'objectif de notre projet est de concevoir un logiciel permettant à des jeunes aveugles de dicter des équations mathématiques et de recevoir des retours vocaux pour pouvoir résoudre l’équation. Ce logiciel fonctionnera sur ordinateur. Toutes les commandes peuvent être exécutées par saisie au clavierou vocalement, ce qui évite l'utilisation de lasouris.Les principaux utilisateurs du logiciel seront des jeunes aveugles (niveau bacmax). Le logiciel ne fournira donc que les opérations mathématiques de base, notamment l'addition, la soustraction, la multiplication et la division, la puissance et les fonctions.Notre logiciel met en œuvre à la fois l'entrée et la sortie des équations : l'utilisateur dicte l'équation et le logiciel retourne vocalement l'équation comprise.Compte tenu de l'incertitude de l'équation d'entrée, le logiciel émet un signal sonore lorsque l'équation est terminée, répétant éventuellement l'équation et émettant respectivement donne un signal sonore différent lorsqu'une erreur est reportée.La fonction de navigation permet à l'utilisateur de localiser et de modifier l'équation existante. Compte tenu des ressources disponibles en bibliothèque, nous mettons en œuvre la dictée dans un maximum de langues possibles, l'anglais et le français compris.
+### Description du projet
 
+Notre projet vise à développer un logiciel alimenté par l'IA pour aider les lycéens malvoyants à résoudre des équations mathématiques en utilisant leur voix. L'objectif est de permettre aux étudiants de dicter des équations, de recevoir un retour vocal de l’équation comprise par le logiciel et de naviguer pour les modifier. Les principaux utilisateurs seront des étudiants aveugles jusqu'au niveau bac et mais le logiciel permet également de fournir que des opérateurs mathématiques avancés (intégrales, etc.).
 
+Pour atteindre cet objectif, nous avons utilisé plusieurs technologies et méthodes de travail. Tout d'abord, nous avons utilisé Whisper, un outil récent de Speech-To-Text de OpenAI pour transcrire la voix de l'utilisateur en équations mathématiques texte. Nous avons ensuite développé une fonction de traduction texte-Latex, qui est le format le plus adapté pour gérer des équations mathématiques. Enfin, nous avons utilisé des services cognitifs Microsoft Azure pour implémenter un bot Text-To-Speech pour relire les équations à l'utilisateur.
 
-## 2- Décomposition en tâches et sous tâches
+En ce qui concerne l'interface utilisateur, nous avons développé une interface graphique, basée sur Python, qui permet à l'utilisateur de dicter une équation mathématique via le microphone et affiche l’équation transcrite, en utilisant des technologies HTML, CSS et JS. L’interface est travaillée pour être simple et accessible : l’élève peut interagir avec l’interface avec la voix, grâce à des commandes vocales, ou grâce au clavier, l’utilisation de la souris étant impossible pour eux.
 
-On peut séparer ce projet en deux parties importantes qui servirons dans la répartition des taches:
-
-### 2.1- UNE PARTIE FRONTEND,ELLE-MEME SEPAREE EN PLUSIEURS SOUS-TACHE :
-
-•La création d’une maquette visuelle qui vise à être le plus ergonomique possible pour des étudiants aveugles.
-
-•La mise en place de l’interface via cette maquette qui puisse intégrer et utiliser le code du backend.
-
-### 2.2- UNE PARTIE EN BACKEND,QUI REGROUPE ELLE-MEME PLUSIEURS SOUS-PARTIES :
-
-•La mise en place de la structure de donnée pour le stockage des équations•La création/amélioration d’un module d’Intelligence Artificielle de speech-to-text qui est suffisamment certain pour permettre à un malvoyant d’utiliser le logiciel en toute confiance
-
-•La mise en place du mode de navigation à travers les équations avec diverses assistances (Raccourcis, retours vocaux...).
-
-•Traduction multilingue de l’application
-
-### 2.3- LE RASSEMBLEMENT DE CES DEUX PARTIES POUR AVOIR UNE APPLICATION FONCTIONNELLE ET COMPLETE
-
-### 2.4- LA REDACTION D’UN MODE D’EMPLOI POUR LES POTENTIELS UTILISATEURS,OU PERSONNES QUI SOUHAITENT REPRENDRE LE SUJET.
+Pour assurer la qualité du logiciel, nous avons mis en place une méthode de travail en équipe, où chaque membre a été assigné à des tâches spécifiques. Certains membres ont travaillé sur l'interface graphique et d'autres encore sur l'intégration des services d'IA. Nous avons également effectué des tests utilisateur réguliers pour vérifier la facilité d'utilisation et la pertinence des fonctionnalités. Enfin, une fois que tous les modules ont été développés, nous les avons fusionnés en un seul projet pour créer une expérience utilisateur fluide. En plus d’être un défi technique car aucune technologie actuelle permet de faire ce que nous avons réalisé, cette expérience nous a permis d’aborder la notion d’accessibilité. Nous sommes extrêmement reconnaissants envers Microsoft de nous avoir offert cette opportunité.
 
 
+### Pistes d'améliorations et travail qu'il reste à faire
+Tout le module d'IA, de reconnaissance et retour vocal, sont 100% opérationnels. Cependant, il reste du travail, notamment sur l'interface et tout le module de navigation. Voici les pistes de travail que nous proposons :
 
-## 3- Risk Management
-Ce projet est un projet assez complet qui retrace de A à Z les étapes requises pour faire une application. Il est donc possible de retrouver des points de difficultés qui peuvent ralentir l’avancée du projet. Afin de les détecter, prenons les différentes features dans l’ordre antéchronologiques de leur implémentation et voyons comment palier à leur manque en cas de problème rencontré.
-
-### 3.1 La navigation 
-
-Si certaines bibliothèques permettent une meilleure compréhension de certains domaines, il n’y aucune garantie de pouvoir détecter avec exactitude les différents mots requis pour une navigation confortable. Il faudra alors revoir le fonctionnement de l’interface pour établir plus de raccourcis clavier, afin de garder l’application utilisable par la majorité des malvoyants.
-
-### 3.2 La traduction et représentation fidèle en LateX
-
-Nous utilisons aujourd’hui des bibliothèques qui utilisent du Speech-to-Text afin de nous faciliter la tâche lorsque nous voulons générer des Mathématiques en LateX. Malheureusement, ces librairies sont presque exclusivement en Anglais, ce qui rajoute une difficulté quant à la traduction directe de la voix d’un étudiant en texte anglais pour l’utiliser comme entrée, tout en gardant la signification mathématique exacte de ce qu’il a voulu exprimer. Dans le cas où nous ne trouvons pas de solution, il faudra revoir le reste de l’application pour que celle-ci fonctionne en Anglais, et rajouter les supports dans d’autres langues comme des features annexes lorsque le projet sera déjà dans sa phase finale.
-
-### 3.3 Le stockage des données pour la navigation
-
-S’il est possible d’enregistrer et d’afficher des équations assez fidèlement à l’entrée vocale, il est plus compliqué de savoir comment facilement y accéder une fois l’enregistrement fait. L’idée est donc de simplifier le problème au maximum en utilisant une séparation « en bloc » de chaque équation, elle-même placée dans une structure de donnée qui est compatible avec les notions d’équations ‘précédentes et suivantes’. Si au final, il s’avère que ces solutions sont trop compliquées à implémenter, il faudra se reposer sur de la manipulation de liste et d’index.
-
-### 3.4  Facilitation du vocabulaire à employer
-
-Enfin, en tant qu’étudiants sans handicap, nous n’avons que l’expérience de logiciels comme Siri et Cortana pour donner des commandes vocales efficaces, mais nous n’avons en aucun cas une vision sur le fonctionnement de la résolution d’équations mathématiques pour les étudiants malvoyants, il est alors compliqué de se mettre dans leur peau et de comprendre leur besoin sans référence. Pour pallier à ce problème, nous avons planifié un rendez-vous avec l’INJA (institut national des jeunes aveugles) pour mieux comprendre leur besoin, et savoir précisément quelles commandes vocales figureront en priorité dans notre application.
+#### L'interface
+- améliorer l'interface : la rendre plus accessible pour les malvoyants (couleurs, emplacement des boutons...)
+- continuer le travail sur les commandes clavier pour pouvoir actionner TOUS les boutons de l'interface
+- ajouter des commandes vocale pour activer les boutons de l'interface par la voix
+- travailler l'affichage des équations (pour le moment, on affiche des images dont les dimentions sont fixes, il faudrait que la taille de l'image soit modulée par la longueur de l'équation pour ne pas la couper)
+#### Les paramètres
+- permettre le changement de langue
+- permettre le choix de la voix (sexe, rapidité de lecture...). Ces paramètres sont possibles avec le module Microsoft Azure que nous avons utilisé, il s'agit juste de relier les paramètres de l'interface et les variables dans la fonction Microsoft Azure.
+#### La navigation et les modifications
+- permettre de modifier une équation ou un élément de l'équation (qui est dans l'historique ou dans l'équation en court)
+Nous avons commencé un travail sur la navigation en fonctionnant sur des blocs séparés par les opérateurs +,-,*,/,(,), mais notre travail n'a pas été intégré à l'interface, n'hésitez pas à nous contacter pour plus de détail.
+#### Test et tuto
+- développer un tuto d'utilisation (accessible aux malvoyanrs), détaillant les commandes et fonctionnalités de l'interface.
+- aller voir des élèves lycées de l'INJA (Institut National des Jeunes Aveugles à Paris) et tester le logiciel
+- tester également le logiciel sur des malvoyants (personnes dont la vision est réduite)
 
 
 
-# English version
 
-## 1- Project objective (final expectation)
+## English Abstract
 
-The objective of our project is to design a software that will allow blind youth to dictate mathematical equations and receive voice feedback to solve the equation. All commands can be executed by keyboarding or by voice, thus avoiding the use of the mouse. The main users of the software will be young blind people (bacmax level). Our software implements both input and output of equations: the user dictates the equation and the software returns the understood equation by voice. Given the uncertainty of the input equation, the software beeps when the equation is completed, possibly repeating the equation and respectively beeps differently when an error is reported.The navigation function allows the user to locate and modify the existing equation. The navigation function allows the user to locate and modify the existing equation. Given the resources available in the library, we implement dictation in as many languages as possible, including English and French.
+### Project description
 
+Our project aims to develop AI-powered software to help visually impaired high school students solve math equations using their voice. The goal is to allow students to dictate equations, receive voice feedback of the equation understood by the software, and navigate to edit them. The main users will be blind students up to baccalaureate level, but the software also makes it possible to provide only advanced mathematical operators (integrals, etc.).
 
-## 2- Breakdown into tasks and subtasks
+To achieve this goal, we used several technologies and working methods. First, we used Whisper, a recent Speech-To-Text tool from OpenAI to transcribe the user's voice into text math equations. We then developed a text-Latex translation function, which is the most suitable format for managing mathematical equations. Finally, we used Microsoft Azure Cognitive Services to implement a Text-To-Speech bot to read the equations back to the user.
 
-We can separate this project into two important parts which will be used in the distribution of tasks:
+Regarding the user interface, we have developed a graphical interface, based on Python, which allows the user to dictate a mathematical equation via the microphone and displays the transcribed equation, using HTML, CSS and JS technologies. . The interface is worked to be simple and accessible: the student can interact with the interface with the voice, thanks to voice commands, or thanks to the keyboard, the use of the mouse being impossible for them.
 
-### 2.1 A FRONTEND PART, WHICH IS ITSELF SEPARATED INTO SEVERAL SUBTASKS:
+To ensure the quality of the software, we have implemented a teamwork method, where each member has been assigned to specific tasks. Some members worked on the GUI and still others on the integration of AI services. We also performed regular user testing to check the usability and relevance of features. Finally, once all the modules were developed, we merged them into a single project to create a smooth user experience. In addition to being a technical challenge because no current technology allows us to do what we have achieved, this experience allowed us to approach the notion of accessibility. We are extremely grateful to Microsoft for giving us this opportunity.
 
--The creation of a visual model that aims to be as ergonomic as possible for blind students.
+### Areas for improvement and work that remains to be done
+All the AI module, recognition and voice feedback, are 100% operational. However, there is still work to be done, especially on the interface and the entire navigation module. Here are the lines of work we offer:
 
--The implementation of the interface via this model which can integrate and use the code of the backend.
-
-### 2.2 A BACKEND PART, WHICH ITSELF INCLUDES SEVERAL SUB-PARTS:
-
--The implementation of the data structure for the storage of equations - The creation/improvement of an Artificial Intelligence speech-to-text module that is sufficiently certain to allow a visually impaired person to use the software with confidence
-
--The implementation of a navigation mode through the equations with various assistances (shortcuts, voice feedback...).
-
--Multilingual translation of the application
-
-### 2.3 THE GATHERING OF THESE TWO PARTS TO HAVE A FUNCTIONAL AND COMPLETE APPLICATION
-
-### 2.4 WRITING AN INSTRUCTION MANUAL FOR POTENTIAL USERS, OR PEOPLE WHO WANT TO TAKE UP THE SUBJECT.
-
-
-
-## 3- Risk Management
-
-This project is a fairly complete project that retraces from A to Z the steps required to make an application. It is therefore possible to find points of difficulty that can slow down the progress of the project. In order to detect them, let's take the different features in the antechronological order of their implementation and see how to make up for their lack in case of a problem.
-
-### 3.1 Navigation 
-
-If some libraries allow a better understanding of certain domains, there is no guarantee to be able to detect exactly the different words required for a comfortable navigation. It will then be necessary to review the interface to establish more keyboard shortcuts, in order to keep the application usable by the majority of visually impaired people.
-
-### 3.2 Translation and faithful representation in LateX
-
-Today we use Speech-to-Text libraries to make it easier for us to generate mathematics in LateX. Unfortunately, these libraries are almost exclusively in English, which adds a difficulty in translating a student's voice directly into English text to use as input, while keeping the exact mathematical meaning of what he wanted to express. In case we do not find a solution, we will have to redesign the rest of the application so that it works in English, and add support for other languages as additional features when the project is already in its final phase.
-
-### 3.3 Data storage for navigation
-
-While it is possible to record and display equations fairly accurately to voice input, it is more complicated to know how to easily access them once the recording is done. The idea is therefore to simplify the problem as much as possible by using a "block" separation of each equation, itself placed in a data structure that is compatible with the notions of 'previous and next' equations. If, in the end, it turns out that these solutions are too complicated to implement, it will be necessary to rely on list and index manipulation
-
-### 3.4 Facilitating the vocabulary to be used
-
-Finally, as able-bodied students, we only have experience with software such as Siri and Cortana to give effective voice commands, but we have no insight into how solving mathematical equations works for visually impaired students, so it is complicated to put ourselves in their shoes and understand their needs without reference. To overcome this problem, we have scheduled a meeting with the INJA (National Institute for the Blind) to better understand their needs, and to know precisely which voice commands will be the priority in our application.
+#### Interface
+- improve the interface: make it more accessible for the visually impaired (colors, location of buttons, etc.)
+- continue working on the keyboard commands to be able to operate ALL the buttons of the interface
+- add voice commands to activate interface buttons by voice
+- work on the display of equations (for the moment, we display images whose dimensions are fixed, the size of the image should be modulated by the length of the equation so as not to cut it)
+#### The settings
+- allow language change
+- allow the choice of the voice (sex, speed of reading...). These parameters are possible with the Microsoft Azure module that we used, it is just a matter of linking the interface parameters and the variables in the Microsoft Azure function.
+#### Navigation and modifications
+- allow to modify an equation or an element of the equation (which is in the history or in the current equation)
+We have started a work on the navigation by working on blocks separated by the operators +,-,*,/,(,), but our work has not been integrated into the interface, do not hesitate to contact us for more detail.
+#### Test
+- develop a user tutorial (accessible to the visually impaired), detailing the commands and features of the interface.
+- go see high school students from INJA (National Institute for Young Blind People in Paris) and test the software
+- also test the software on visually impaired people (people with reduced vision)
